@@ -177,8 +177,9 @@ docs/            demo media, result tables and plots
 third_party/     MuJoCo Menagerie Shadow Hand (Apache-2.0)
 ```
 
-## Credits
+## License and credits
 
-The Shadow Hand model is from [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie)
-(Apache-2.0; see `third_party/menagerie/LICENSE`). Simulation with [MuJoCo](https://mujoco.org),
-hand tracking with [MediaPipe](https://developers.google.com/mediapipe).
+The project code is released under the [MIT License](LICENSE). The Shadow Hand model files in
+`third_party/menagerie/` come from [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie)
+and remain under the Apache License 2.0 (`third_party/menagerie/LICENSE`).
+Simulation with [MuJoCo](https://mujoco.org), hand tracking with [MediaPipe](https://developers.google.com/mediapipe).
