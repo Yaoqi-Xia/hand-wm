@@ -13,3 +13,4 @@ Thumbs.db# machine-specific python path used by the launchers
 local_python.txt
 # MediaPipe hand model (download separately, see README)
 assets/hand_landmarker.task
+MUJOCO_LOG.TXT
