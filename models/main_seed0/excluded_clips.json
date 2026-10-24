@@ -1,0 +1,15 @@
+{
+ "excluded_clip_indices": [
+  4371,
+  5323,
+  5940,
+  6880,
+  14282,
+  21815,
+  22950,
+  23429,
+  28819
+ ],
+ "source": "deep_contacts.json (unstable + >5 mm contact)",
+ "note": "global clip index = shard * per_shard + position in shard"
+}

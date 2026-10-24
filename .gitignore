@@ -1,0 +1,15 @@
+# large / regenerable
+data/
+runs/
+logs/
+.venv/
+__pycache__/
+*.pyc
+*.tmp.npz
+# local editor / OS files
+.vscode/
+.idea/
+Thumbs.db# machine-specific python path used by the launchers
+local_python.txt
+# MediaPipe hand model (download separately, see README)
+assets/hand_landmarker.task

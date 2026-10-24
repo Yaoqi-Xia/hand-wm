@@ -1,0 +1,17 @@
+# conda env create -f environment.yml
+# GPU PyTorch: install the CUDA build that matches your driver, e.g.
+#   pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu126
+name: handwm
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - mujoco==3.16.0
+      - numpy==2.5.4
+      - opencv-python==5.0.0.93
+      - mediapipe==1.1.1
+      - pyserial==3.5
+      - matplotlib==3.11.2
+      - pillow==13.0.0
