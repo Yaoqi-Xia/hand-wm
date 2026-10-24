@@ -14,6 +14,22 @@ the training data and serves as the answer key: every prediction is graded again
 physics with a collision-based checker (position error, hand-through-block, block–block overlap,
 teleporting).
 
+## Real-hand control
+
+The world model only ever sees the 9 control numbers (turned into 21 hand keypoints by a
+block-free replay of the hand), so any input device that produces them can drive it.
+
+| input | provides | status |
+|---|---|---|
+| webcam + MediaPipe hand landmarks | all 9: palm x, y (palm centre in the image), yaw (wrist→middle-finger direction, 2× gain), roll (palm normal), 5 finger bends (joint curls); calibrated to an open hand with `C` | working (~30 fps): launchers `6` (MuJoCo) and `11` (learned world) |
+| wearable glove: BNO085 IMU | wrist yaw and roll | hardware acquired, being integrated |
+| wearable glove: 5 flex sensors via MCP3008 ADC on a Raspberry Pi Pico | 5 finger bends | hardware acquired, being integrated |
+| (glove mode) webcam | palm position | camera stays in the loop for x, y |
+
+The model was trained only on scripted random hands in simulation, so real-hand control is also a
+test of generalisation to human motion. Planned evaluation: record real-hand control sequences,
+replay them in MuJoCo for ground truth and report the same metrics as below.
+
 ## Method
 
 **Simulation and data.** A free-floating Shadow Hand ([MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie))
@@ -150,8 +166,8 @@ than predicting no motion. The 6–8-block test set shows the same pattern.
 - Contact-aware training: weight moving / contacted blocks, or add an overlap penalty.
 - Relative-position features or attention biases between tokens.
 - Use the model for planning (push a chosen block to a target) and verify in MuJoCo.
-- A wearable glove (IMU for wrist orientation, flex sensors for the 5 bends) as the live input,
-  and a real-human test set.
+- Finish the glove integration (BNO085 IMU + 5 flex sensors on a Pico, camera for palm position)
+  and evaluate on recorded real-hand sequences replayed in MuJoCo.
 - An image-based world model on the stored 64×64 top-down frames, graded the same way.
 
 ## Install
