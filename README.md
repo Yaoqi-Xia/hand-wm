@@ -21,7 +21,7 @@ block-free replay of the hand), so any input device that produces them can drive
 
 | input | provides | status |
 |---|---|---|
-| webcam + MediaPipe hand landmarks | all 9: palm x, y (palm centre in the image), yaw (wrist→middle-finger direction, 2× gain), roll (palm normal), 5 finger bends (joint curls); calibrated to an open hand with `C` | working (~30 fps): launchers `6` (MuJoCo) and `11` (learned world) |
+| webcam + MediaPipe hand landmarks | all 9: palm x, y (palm centre in the image), yaw (wrist→middle-finger direction, 2× gain), roll (palm normal), 5 finger bends (joint curls); calibrated to an open hand with `C` | working (~30 fps): `6_hand_camera.bat` (MuJoCo) and `11_play_learned_world_camera.bat` (learned world) |
 | wearable glove: BNO085 IMU | wrist yaw and roll | hardware acquired, being integrated |
 | wearable glove: 5 flex sensors via MCP3008 ADC on a Raspberry Pi Pico | 5 finger bends | hardware acquired, being integrated |
 | (glove mode) webcam | palm position | camera stays in the loop for x, y |
@@ -196,19 +196,19 @@ Double-click a launcher in the repository root, or run the script with `python`:
 
 | launcher | script | what it does |
 |---|---|---|
-| `5_…` / `6_…` | `scripts/teleop_hand.py [--camera]` | drive the five-finger hand in MuJoCo with keyboard/mouse or your real hand (MediaPipe) |
-| `2_…` | `scripts/hand_preview.py` | webcam hand-tracking preview |
-| `7_…` | `gen_dataset.py`, `prep_hand_only.py`, `physics_report.py` | generate the 30k-clip dataset (resumable, ≈15 GB) |
-| `8_…` | `scripts/view_dataset.py` | browse generated clips |
-| `12_…` | `scripts/train_wm.py` | train the main model and the two comparison models, then evaluate |
-| `13_…` | same, seeds 1–2 | extra seeds and the mean ± std summary (`scripts/aggregate_seeds.py`) |
-| `9_…` | `scripts/eval_wm.py` | grade models and baselines against MuJoCo |
-| `10_…` / `11_…` | `scripts/play_wm.py [--camera]` | play inside the learned world (solid) with MuJoCo truth as translucent ghosts |
+| `5_hand_keyboard.bat` / `6_hand_camera.bat` | `scripts/teleop_hand.py [--camera]` | drive the five-finger hand in MuJoCo with keyboard/mouse or your real hand (MediaPipe) |
+| `2_hand_tracking_preview.bat` | `scripts/hand_preview.py` | webcam hand-tracking preview |
+| `7_generate_dataset.bat` | `gen_dataset.py`, `prep_hand_only.py`, `physics_report.py` | generate the 30k-clip dataset (resumable, ≈15 GB) |
+| `8_view_dataset.bat` | `scripts/view_dataset.py` | browse generated clips |
+| `12_train_models.bat` | `scripts/train_wm.py` | train the main model and the two comparison models, then evaluate |
+| `13_train_extra_seeds.bat` | same, seeds 1–2 | extra seeds and the mean ± std summary (`scripts/aggregate_seeds.py`) |
+| `9_evaluate.bat` | `scripts/eval_wm.py` | grade models and baselines against MuJoCo |
+| `10_play_learned_world_keyboard.bat` / `11_play_learned_world_camera.bat` | `scripts/play_wm.py [--camera]` | play inside the learned world (solid) with MuJoCo truth as translucent ghosts |
 
 `play_wm.py` uses the newest trained model in `runs/`, or the bundled seed-0 model in
 `models/main_seed0/` on a fresh clone (evaluation and analysis need the dataset from launcher 7).
 Analysis: `scripts/analyze_overlap.py`, `scripts/error_breakdown.py`; README media:
-`scripts/render_demo.py`. `legacy/` holds the launchers of the first single-finger prototype.
+`scripts/render_demo.py`. `legacy/` holds the launchers of the first single-finger prototype (`1_finger_keyboard.bat`, `3_finger_camera.bat`, `4_finger_replay_latest.bat`).
 
 ## Layout
 
