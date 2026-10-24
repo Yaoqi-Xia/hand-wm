@@ -105,7 +105,35 @@ The main weakness is **blocks sinking into each other** in long rollouts (12 % o
 |---|---|
 | ![](docs/results/overlap_example_1.png) | ![](docs/results/overlap_example_2.png) |
 
-<!-- ERROR_BREAKDOWN -->
+### Error by what happens to each block
+
+Seed-0 models, same test clips. **(a) One step from the true state** (what the training loss
+sees), per block-step: *contacted* = touches the true hand, or touches another block while either
+moves > 0.5 mm in that step; *moving* = otherwise moves > 0.5 mm (e.g. sliding after a push);
+*static* = the rest. Mean position error in mm ([full tables](docs/results/error_breakdown.md)):
+
+| 1–5 blocks (share of block-steps) | static (80.3 %) | moving (1.8 %) | contacted (17.9 %) |
+|---|---|---|---|
+| Transformer + 21 keypoints | 0.18 | 4.37 | 1.80 |
+| same, one-step only | 0.10 | 4.15 | 1.78 |
+| Transformer, hand = 9 numbers | 1.26 | 4.96 | 2.88 |
+| MLP | 0.32 | 5.15 | 2.07 |
+| blocks don't move | 0.00 | 6.50 | 3.00 |
+| constant velocity | 0.03 | 6.33 | 2.07 |
+
+**(b) Rollout error** (cm), each block grouped by its true history up to that step; at 200 steps
+(10 s) with 1–5 blocks, 9 % of blocks never moved, 6 % moved without being touched by the hand,
+85 % were touched by the hand:
+
+| 1–5 blocks, @200 | never moved | moved, not hand-touched | hand-touched |
+|---|---|---|---|
+| Transformer + 21 keypoints | 0.68 | 2.27 | 4.46 |
+| blocks don't move | 0.00 | 2.56 | 6.62 |
+| constant velocity | 0.00 | 4.44 | 12.22 |
+
+The model is most accurate on blocks at rest and in direct contact, and weakest on blocks that slide
+freely after a push (a rare case: under 2 % of block-steps), where it is only about a third better
+than predicting no motion. The 6–8-block test set shows the same pattern.
 
 ## Limitations
 
